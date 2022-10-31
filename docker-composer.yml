@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  api:
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/code
+    environment:
+      HOST: "${HOST}" 
+      PORT: "${PORT}" 
+      CONSUMER_KEY: "${CONSUMER_KEY}"
+      CONSUMER_SECRET: "${CONSUMER_SECRET}"
+      ACCESS_TOKEN: "${ACCESS_TOKEN}"
+      ACCESS_TOKEN_SECRET: "${ACCESS_TOKEN_SECRET}"
+      FLASK_ENV: "${FLASK_ENV}" 
+      MONGO_HOST: "${MONGO_HOST}"
+      MONGO_PORT: "${MONGO_PORT}"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-data:/db/data
